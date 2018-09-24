@@ -24,11 +24,23 @@ class CartService
         $this->session = Session::getInstance();
     }
 
-    public function addToCart($product,$params)
+    public function addToCart($id)
     {
+        $array=$this->session->getParam('cart');
+        if ($array == null){
+            $result[]= $array;
+            $this->session->setParam( 'cart',$result);
+            return $result;
+        }
+        $len = count($array) + 1;
+        $array[$len]=intval($id);
+        $this->session->setParam( 'cart',$array);
+        return $array;
+    }
 
-        $this->session->setParam($product->id, $params);
-        return $this->session->getParam('id');
+    public function sessionRestart(){
+        $this->session->setParam('cart',null);
+
     }
 
 

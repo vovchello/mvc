@@ -14,6 +14,10 @@ use Core\Controller;
 use Core\Request;
 use Core\View;
 
+/**
+ * Class CartController
+ * @package App\Controllers\Cart
+ */
 class CartController extends  Controller
 {
     /**
@@ -46,20 +50,26 @@ class CartController extends  Controller
         $this->service = $service;
     }
 
-
+    public function refreshCart(){
+        $this->service->sessionRestart();
+        return $this->redirect('/');
+    }
     /**
      * @param $id
      */
     public  function addToCart($id){
-        $product =$this->product;
-        $session = $this->service->addToCart($product-getAll(),$id);
+        $session = $this->service->addToCart($id);
         return $this->redirect('/');
 
 
     }
-    public  function index(){
 
-        View::renderTemplate('cart/index.html',['session' => $_SESSION['id']]);
+    /**
+     *
+     */
+    public  function index(){
+        $products =$this->product->getAll();
+        View::renderTemplate('cart/index.html',['sessions' => $_SESSION['cart'],'products' => $products]);
 
 
     }

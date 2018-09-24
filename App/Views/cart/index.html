@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    {{session}}
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+<div class="row row-eq-height">
+    <div class="col-12 text-center">
+        <h3 class="mb-3 mt-5">Корзина</h3>
+
+    </div>
+    <div class=" text-center">
+        <a class="btn btn-success"
+           href="/cart/refreshCart">
+            <i class="fa fa-trash"></i>
+        </a>
+    </div>
+<div class="w-100"></div>
+    {% for session in sessions %}
+    {% for product in products %}
+    {% if product.id == session %}
+    <div class="col-6 col-sm-3 mb-3">
+        <div class="card text-white bg-info" style="height:100%;">
+            <div class="card-header">
+                <p class="text-center font-weight-bold">{{ product.name }}</p>
+            </div>
+            <div class="card-body text-center bg-white">
+                <img class="img-fluid center-block card-img" alt="{{ product.name}}"
+                     src="/images/no-image.jpeg" style="max-height: 100px; max-width: 100px">
+                <h5 class="card-text mt-3 text-dark"><strong>$ {{ product.price }}</strong></h5>
+            </div>
+            <div class="card-footer text-center bg-dark">
+                <a class="btn btn-light" href="#">
+                    Детали
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+</div>
+
+{% endblock %}

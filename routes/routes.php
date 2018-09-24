@@ -39,6 +39,10 @@ $routes = [
         'params' => ['controller' => 'Cart', 'action' => 'addToCart', 'namespace' => 'Cart']
     ],
     [
+        'route' => 'cart/refreshCart',
+        'params' => ['controller' => 'Cart', 'action' => 'refreshCart', 'namespace' => 'Cart']
+    ],
+    [
         'route' => 'cart',
         'params' => ['controller' => 'Cart', 'action' => 'index', 'namespace' => 'Cart']
     ],
