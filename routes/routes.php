@@ -43,6 +43,10 @@ $routes = [
         'params' => ['controller' => 'Cart', 'action' => 'refreshCart', 'namespace' => 'Cart']
     ],
     [
+        'route' => 'cart/deleteProductFromCart/{id:\d+}',
+        'params' => ['controller' => 'Cart', 'action' => 'deleteProductFromCart', 'namespace' => 'Cart']
+    ],
+    [
         'route' => 'cart',
         'params' => ['controller' => 'Cart', 'action' => 'index', 'namespace' => 'Cart']
     ],

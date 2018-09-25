@@ -58,18 +58,22 @@ class CartController extends  Controller
      * @param $id
      */
     public  function addToCart($id){
-        $session = $this->service->addToCart($id);
+        $this->service->addToCart($id);
         return $this->redirect('/');
 
 
     }
 
+    public function deleteProductFromCart($id){
+        $this->service->deleteProductFromCart($id);
+        return $this->redirect('/cart');
+    }
     /**
      *
      */
     public  function index(){
         $products =$this->product->getAll();
-        View::renderTemplate('cart/index.html',['sessions' => $_SESSION['cart'],'products' => $products]);
+        View::renderTemplate('/cart/index.html',['sessions' => $_SESSION['cart'],'products' => $products]);
 
 
     }
