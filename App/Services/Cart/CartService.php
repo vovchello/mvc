@@ -32,49 +32,28 @@ class CartService
     }
 
     /**
-     * @param array $array
      * @param $id
-     * @return int
+     * @return array|mixed
      */
-    public function countProduct(array $array, $id){
-        $count = 0;
-            foreach($array as $value){
-                if ($value == $id){
-                    $count ++;
-                }
-        }
-        return $count;
+    protected function getSessionArray($id){
+        $this->session->getParam($id) == null ? $result=[]:$result=$this->session->getParam($id);
+        return $result;
     }
 
     /**
      * @param $id
      */
-    public function addToCart($id)
+    public function addToCart($id) : void
     {
-        $count = 0;
-        $array = $this->session->getParam('cart');
-        if ($array == null) {
-            $array = [];
-            $array[] = ['id' => $id, 'amount' => 1];
-            $count = 1;
-        } else {
-            foreach ($array as & $value){
-                    if ($value['id'] == $id) {
-                        $count++;
-                        $value['amount']++;
-                    }
-                }
-            }
-        if ($count == 0){
-            $array[] = ['id' => $id, 'amount' => 1];
-        }
-        $this->session->setParam('cart', $array);
+        $result=$this->getSessionArray('cart');
+        isset($result[$id])?$result[$id]++:$result[$id]=1;
+        $this->session->setParam('cart', $result);
     }
 
     /**
-     *
+     * void
      */
-    public function sessionRestart(){
+    public function sessionRestart():void{
         $this->session->setParam('cart',null);
 
     }
@@ -82,7 +61,7 @@ class CartService
     /**
      * @param $id
      */
-    public function deleteProductFromCart($id){
+    public function deleteProductFromCart($id):void{
         $session=$this->session->getParam("cart");
         $key=array_search($id,$session);
         unset($session[$key]);
